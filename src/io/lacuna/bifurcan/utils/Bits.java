@@ -16,7 +16,7 @@ public class Bits {
    * @return the offset of the bit
    */
   public static int bitOffset(long n) {
-    return deBruijnIndex[0xFF & (int) ((n * 0x022fdd63cc95386dL) >>> 58)];
+    return deBruijnIndex[(int) ((n * 0x022fdd63cc95386dL) >>> 58)];
   }
 
   /**
@@ -91,7 +91,7 @@ public class Bits {
    * @return a mask, with all bits below that offset set to one
    */
   public static long maskBelow(int bits) {
-    return (1L << bits) - 1;
+    return bits == Long.SIZE ? -1L : (1L << bits) - 1;
   }
 
   /**
@@ -99,7 +99,7 @@ public class Bits {
    * @return a mask, with all bits above that offset set to one
    */
   public static long maskAbove(int bits) {
-    return -1L & ~maskBelow(bits);
+    return ~maskBelow(bits);
   }
 
   /**
